@@ -96,7 +96,6 @@ public class Catalogue implements I_Catalogue {
 		return false;
 	}
 	public boolean contains(I_Produit p) {
-		System.out.println("bon jour les z amis");
 		return (this.toString().equals(p.toString()));
 	}
 	@Override
