@@ -95,15 +95,19 @@ public class Catalogue implements I_Catalogue {
 		}
 		return false;
 	}
+	
 	public boolean contains(I_Produit p) {
 		return (this.toString().equals(p.toString()));
 	}
+	
 	@Override
 	public boolean vendreStock(String nomProduit, int qteVendue) {
 		for (I_Produit produit : _lesProduits) {
 			if (nomProduit != null && qteVendue > 0 )
 			{
-				if (produit.getNom() == nomProduit && produit.getQuantite() > 0 && qteVendue <= produit.getQuantite())
+				if (produit.getNom() == nomProduit && 
+						produit.getQuantite() > 0 && 
+						qteVendue <= produit.getQuantite())
 				{
 					produit.enlever(qteVendue);
 					return true;

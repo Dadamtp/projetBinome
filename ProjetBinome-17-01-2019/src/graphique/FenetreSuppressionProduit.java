@@ -3,10 +3,13 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import controleur.ctrlProduit;
+
 public class FenetreSuppressionProduit extends JFrame implements ActionListener {
 
 	private JButton btSupprimer;
 	private JComboBox<String> combo;
+	private ctrlProduit controleurProduit;
 	
 	public FenetreSuppressionProduit(String lesProduits[]) {
 		
@@ -25,10 +28,15 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 		btSupprimer.addActionListener(this);
 
 		this.setVisible(true);
+		
+		controleurProduit = new ctrlProduit();
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btSupprimer && combo.getSelectedItem() != null) {
+			System.out.println("supression " + String.valueOf(combo.getSelectedItem()));
+			//controleurProduit.removeProduit(combo.getName());
+		}
 		this.dispose();
 	}
-
 }

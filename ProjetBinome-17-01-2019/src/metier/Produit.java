@@ -17,7 +17,6 @@ public class Produit implements I_Produit {
 		this._nom = this._nom.trim();
 		this._nom.replace(this._nom.substring(
 				this._nom.lastIndexOf(this._nom), this._nom.lastIndexOf(this._nom)), "");
-		
 	}
 	
 	

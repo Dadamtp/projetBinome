@@ -13,7 +13,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	private JTextField txtQte;
 //	private JComboBox<String> combo;
 	private JButton btValider;
-	private ctrlProduit controlProduct;
+	private ctrlProduit controleurProduit;
 
 //	public FenetreNouveauProduit(String[] lesCategories) {
 	public FenetreNouveauProduit() {	
@@ -25,7 +25,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 		JLabel labNom = new JLabel("Nom produit");
 		JLabel labPrixHT = new JLabel("Prix Hors Taxe");
-		JLabel labQte = new JLabel("QuantitÃ© en stock");
+		JLabel labQte = new JLabel("Quantité en stock");
 //		JLabel labCategorie = new JLabel("Categorie");
 		contentPane.add(labNom);
 		txtNom = new JTextField(15);
@@ -41,16 +41,22 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 //		combo.setPreferredSize(new Dimension(100, 20));
 //		contentPane.add(labCategorie);
 //		contentPane.add(combo);
-
 		
 		btValider = new JButton("Valider");
 		contentPane.add(btValider);
 
 		btValider.addActionListener(this);
 		setVisible(true);
+		
+		controleurProduit = new ctrlProduit();
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == btValider) {		
+			controleurProduit.addProduit(txtNom.getText(), 
+					Double.parseDouble(txtPrixHT.getText()),
+					Integer.parseInt(txtQte.getText()));
+		}
 		this.dispose();
 	}
 

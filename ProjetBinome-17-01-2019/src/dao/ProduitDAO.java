@@ -7,6 +7,8 @@ import metier.I_Produit;
 
 public class ProduitDAO implements I_ProduitDAO {
 	private PreparedStatement ps;
+	private CallableStatement cs;
+	private Statement st;
 	private ResultSet rs;
 	private Connection cn;
 
@@ -14,10 +16,9 @@ public class ProduitDAO implements I_ProduitDAO {
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			cn = DriverManager.getConnection("jdbc:oracle:thin:@gloin:1521:iut", "perezd", "123");
-			//st = cn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			//rs = st.executeQuery("SELECT codePersonne, nomPersonne, prenomPersonne, agePersonne FROM Personnes ORDER BY agePersonne DESC NULLS LAST");
-
+			//cn = DriverManager.getConnection("jdbc:oracle:thin:@gloin:1521:iut", "perezd", "123");
+			cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut", "perezd", "123");
+			
 		}
 		catch (ClassNotFoundException | SQLException e) {
 			System.out.println(e.getMessage());
@@ -32,11 +33,12 @@ public class ProduitDAO implements I_ProduitDAO {
 		double prix = produit.getPrixUnitaireHT();
 		
 		try {
-			ps = cn.prepareStatement("{call ajoutProduits(?, ?, ?}");
-			ps.setString(1, nom);
-			ps.setInt(2, quantite);
-			ps.setDouble(3, prix);
-			ps.execute();
+			cs = cn.prepareCall("{call ajoutProduits(?, ?, ?)}");
+			
+			cs.setString(1, nom);
+			cs.setInt(2, quantite);
+			cs.setDouble(3, prix);
+			cs.execute();
 		} 
 		catch (SQLException e) {
 			System.out.println(e.getMessage());
@@ -48,14 +50,26 @@ public class ProduitDAO implements I_ProduitDAO {
 	
 	@Override
 	public boolean update(I_Produit produit) {
-		// TODO Auto-generated method stub
+		 
 		return false;
 	}
 	
 	@Override
-	public boolean delete(I_Produit produit) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(String nom) {
+		int ret;
+		try {
+			ps = cn.prepareStatement("DELETE FROM PRODUIT where nomProduit = ?");
+			ps.setString(1, nom);
+			ret = ps.executeUpdate();
+			//TODO gérer le retour de l'execute Update, doit normalement renvoyer 1 
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 	
 	@Override
@@ -70,5 +84,17 @@ public class ProduitDAO implements I_ProduitDAO {
 		return null;
 	}
 	
-	
+	public void disconnect() {
+		try {
+			ps.close();
+			cs.close();
+			rs.close();
+			cn.close();
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
+	}
 }
