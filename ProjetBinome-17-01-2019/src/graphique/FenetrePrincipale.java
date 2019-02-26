@@ -16,10 +16,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btVente;
 	private JButton btQuitter;
 	
-	
-	private ctrlProduit controleurProduit;
 	private ctrlStock controleurStock;
-	
+
 	public FenetrePrincipale() {
 		
 		setTitle("exercice Produits");
@@ -66,7 +64,8 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		addWindowListener(this);
 		setVisible(true);
 		
-		
+		controleurStock = new ctrlStock();
+		controleurStock.recupStock();
 	}
 
 	public void actionPerformed(ActionEvent e) {

@@ -1,9 +1,11 @@
 package dao;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 import metier.I_Produit;
+import metier.Produit;
 
 public class ProduitDAO implements I_ProduitDAO {
 	private PreparedStatement ps;
@@ -33,8 +35,7 @@ public class ProduitDAO implements I_ProduitDAO {
 		double prix = produit.getPrixUnitaireHT();
 		
 		try {
-			cs = cn.prepareCall("{call ajoutProduits(?, ?, ?)}");
-			
+			cs = cn.prepareCall("{call ajoutProduits(?, ?, ?)}");		
 			cs.setString(1, nom);
 			cs.setInt(2, quantite);
 			cs.setDouble(3, prix);
@@ -80,8 +81,30 @@ public class ProduitDAO implements I_ProduitDAO {
 	
 	@Override
 	public List<I_Produit> readAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<I_Produit> l = new ArrayList<I_Produit>();
+		String	nom;
+		int		quantite;
+		double	prix;
+		
+		try {
+			st = cn.createStatement();
+			rs = st.executeQuery("SELECT nomProduit, quantite, prix FROM produits");
+			while (rs.next())
+			{
+				nom = rs.getString(1);
+				quantite = rs.getInt(2);
+				prix = rs.getDouble(3);
+				System.out.println(nom + " " + quantite + " " + prix);
+				I_Produit p = new Produit(nom, prix, quantite);
+				l.add(p);
+			}
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return l;
 	}
 	
 	public void disconnect() {
