@@ -12,7 +12,7 @@ public class FenetreAchat extends JFrame implements ActionListener {
 	private JComboBox<String> combo;
 	private ctrlAchat controleurAchat;
 
-	public FenetreAchat(String[] lesProduits) {
+	public FenetreAchat() {
 
 		setTitle("Achat");
 		setBounds(500, 500, 200, 125);
@@ -22,7 +22,7 @@ public class FenetreAchat extends JFrame implements ActionListener {
 		txtQuantite = new JTextField(5);
 		txtQuantite.setText("0");
 
-		combo = new JComboBox<String>(lesProduits);
+		combo = new JComboBox<String>();
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);

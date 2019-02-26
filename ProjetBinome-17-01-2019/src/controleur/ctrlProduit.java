@@ -22,6 +22,8 @@ public class ctrlProduit {
 		dao.delete(nom);
 		return cat.removeProduit(nom);
 	}
-	
-	
+
+	public  String[] getStockInTab() {
+		return Catalogue.getInstance().getNomProduits();
+	}
 }

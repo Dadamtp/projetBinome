@@ -59,23 +59,40 @@ public class ProduitDAO implements I_ProduitDAO {
 	public boolean delete(String nom) {
 		int ret;
 		try {
-			ps = cn.prepareStatement("DELETE FROM PRODUIT where nomProduit = ?");
+			ps = cn.prepareStatement("DELETE FROM produits where nomProduit = ?");
 			ps.setString(1, nom);
 			ret = ps.executeUpdate();
-			//TODO gérer le retour de l'execute Update, doit normalement renvoyer 1 
 		}
 		catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
 			return false;
 		}
-		
 		return true;
 	}
 	
 	@Override
 	public I_Produit read(String nom) {
-		// TODO Auto-generated method stub
+		I_Produit p;
+		int quantite;
+		double prix;
+		try {
+			ps = cn.prepareStatement("SELECT nomProduit, quantite, prix FROM produits WHERE nomProduit = '?'");
+			ps.setString(1, nom);
+			rs = ps.executeQuery();
+
+			if (rs.next())
+			{
+				quantite = rs.getInt(2);
+				prix  = rs.getDouble(3);
+				p = new Produit(nom, prix, quantite);
+				return p;
+			}
+		}
+		catch (SQLException e) {
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 		return null;
 	}
 	

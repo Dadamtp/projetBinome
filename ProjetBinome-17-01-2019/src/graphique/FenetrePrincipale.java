@@ -72,25 +72,25 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 
 /* tabProduits permet de tester le fonctionnement des fen�tres avec un tableau de noms de produits "en dur"
    Quand l'application fonctionnera, il faudra bien s�r r�cup�rer les noms des produits dans le Catalogue */
-		String[] tabProduits = new String[] {}; // "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
+		//String[] tabProduits = new String[] {}; // "Mars", "Raider", "Twix", "Treets", "M&M's", "Smarties" };
 /* M�me chose pour tabCategories (partie 4) */ 		
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage("ajourd'hui nous allons faire de la programmation en 5 couches");
+			new FenetreAffichage(controleurStock.getStock());
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
 			new FenetreNouveauProduit();
 		if (e.getSource() == btSupprimerProduit)
-			new FenetreSuppressionProduit(tabProduits);
+			new FenetreSuppressionProduit();
 //		if (e.getSource() == btNouvelleCategorie)
 //			new FenetreNouvelleCategorie();
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
 		if (e.getSource() == btAchat)
-			new FenetreAchat(tabProduits);
+			new FenetreAchat();
 		if (e.getSource() == btVente)
-			new FenetreVente(tabProduits);
+			new FenetreVente();
 		if (e.getSource() == btQuitter){
 			System.out.println("Au revoir");
 			System.exit(0);
