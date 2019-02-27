@@ -14,25 +14,32 @@ public class ctrlProduit {
 	}
 	
 	public  boolean addProduit(String nom, double prix, int qte) {
-		Produit p = new Produit(nom, prix, qte);
+		Produit p;
+		boolean ret = false;
 		if (cat.addProduit(nom, prix, qte))
 		{
+			p = new Produit(nom, prix, qte);
 			dao.create(p);
-			return true;
+			ret = true;
 		}
 		else
 		{
-			new FenetreAffichage("CrÃ©ation Impossible.");
-			return false;
+			new FenetreAffichage("Création Impossible.");
 		}
+		return ret;
 	}
 	
 	public  boolean removeProduit(String nom) {
-		dao.delete(nom);
-		return cat.removeProduit(nom);
+		boolean ret = false;
+		if (cat.removeProduit(nom))
+		{
+			dao.delete(cat.getProduitByName(nom));
+			ret = true;
+		}
+		return ret;
 	}
 
 	public  String[] getStockInTab() {
-		return Catalogue.getInstance().getNomProduits();
+		return cat.getNomProduits();
 	}
 }

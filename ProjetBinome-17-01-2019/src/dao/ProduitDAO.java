@@ -18,8 +18,8 @@ public class ProduitDAO implements I_ProduitDAO {
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			cn = DriverManager.getConnection("jdbc:oracle:thin:@gloin:1521:iut", "perezd", "123");
-			//cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut", "perezd", "123");
+			//cn = DriverManager.getConnection("jdbc:oracle:thin:@gloin:1521:iut", "perezd", "123");
+			cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut", "perezd", "123");
 			
 		}
 		catch (ClassNotFoundException | SQLException e) {
@@ -59,21 +59,22 @@ public class ProduitDAO implements I_ProduitDAO {
 			System.out.println("avant execute");
 			ps.executeUpdate();
 			System.out.println("UPDATE Produits SET quantite = " + produit.getQuantite() + " WHERE nomProduit = " + produit.getNom());
-			return true;
+			
 		}
 		catch (SQLException e) {
 			System.out.println(e.getMessage());
 			e.printStackTrace();
+			return false;
 		}
-		return false;
+		return true;
 	}
 	
 	@Override
-	public boolean delete(String nom) {
+	public boolean delete(I_Produit produit) {
 		int ret;
 		try {
 			ps = cn.prepareStatement("DELETE FROM produits where nomProduit = ?");
-			ps.setString(1, nom);
+			ps.setString(1, produit.getNom());
 			ret = ps.executeUpdate();
 		}
 		catch (SQLException e) {
