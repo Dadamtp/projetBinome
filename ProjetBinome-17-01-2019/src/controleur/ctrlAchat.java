@@ -29,11 +29,15 @@ public class ctrlAchat {
 		}
 		else
 		{
-			new FenetreAffichage("Achat impossible, quantitée insuffisante");
+			new FenetreAffichage("Vente impossible, quantitée insuffisante");
 			return false;
 		}
 	}
 	public String[] getStockInTab() {
 		return cat.getNomProduits();
+	}
+	
+	public void disconnect() {
+		dao.disconnect();
 	}
 }

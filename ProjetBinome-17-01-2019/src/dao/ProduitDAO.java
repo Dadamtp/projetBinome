@@ -18,8 +18,8 @@ public class ProduitDAO implements I_ProduitDAO {
 		
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			//cn = DriverManager.getConnection("jdbc:oracle:thin:@gloin:1521:iut", "perezd", "123");
-			cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut", "perezd", "123");
+			cn = DriverManager.getConnection("jdbc:oracle:thin:@gloin:1521:iut", "perezd", "123");
+			//cn = DriverManager.getConnection("jdbc:oracle:thin:@162.38.222.149:1521:iut", "perezd", "123");
 			
 		}
 		catch (ClassNotFoundException | SQLException e) {
@@ -51,13 +51,14 @@ public class ProduitDAO implements I_ProduitDAO {
 	
 	@Override
 	public boolean update(I_Produit produit) {
-		
 		try {
-			ps = cn.prepareStatement("UPDATE Produits "
-									+ "SET quantite = ?"
-									+ "WHERE nomProduit = '?'");
+			
+			ps = cn.prepareStatement("UPDATE Produits SET quantite=? where nomProduit=?");
 			ps.setInt(1, produit.getQuantite());
 			ps.setString(2, produit.getNom());
+			System.out.println("avant execute");
+			ps.executeUpdate();
+			System.out.println("UPDATE Produits SET quantite = " + produit.getQuantite() + " WHERE nomProduit = " + produit.getNom());
 			return true;
 		}
 		catch (SQLException e) {
@@ -138,10 +139,9 @@ public class ProduitDAO implements I_ProduitDAO {
 	
 	public void disconnect() {
 		try {
-			ps.close();
-			cs.close();
-			rs.close();
-			cn.close();
+			if (cn != null)
+				cn.close();
+			System.out.println("Déconnexion");
 		}
 		catch (SQLException e) {
 			System.out.println(e.getMessage());

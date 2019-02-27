@@ -9,4 +9,5 @@ public interface I_ProduitDAO {
 	public boolean delete(String nom);
 	public I_Produit read(String nom);
 	public List<I_Produit> readAll();
+	public void disconnect();
 }

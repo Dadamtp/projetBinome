@@ -28,7 +28,7 @@ public class Produit implements I_Produit {
 
 	@Override
 	public boolean enlever(int qteVendue) {
-		if (this._quantiteStock - qteVendue >0){
+		if (this._quantiteStock - qteVendue >= 0){
 			this._quantiteStock -= qteVendue;
 			return true;
 		}
@@ -70,6 +70,6 @@ public class Produit implements I_Produit {
 		NumberFormat format = NumberFormat.getCurrencyInstance(Locale.FRANCE);
 		String prixUnitaireHT  = format.format(this.getPrixUnitaireHT());
 		String prixUnitaireTTC = format.format(this.getPrixUnitaireTTC());
-		return this.getNom() + " - prix HT : " + prixUnitaireHT + " - prix TTC : " + prixUnitaireTTC + " - quantité en stock : " + this.getQuantite();
+		return this.getNom() + " - prix HT : " + prixUnitaireHT + " - prix TTC : " + prixUnitaireTTC + " - quantitÃ© en stock : " + this.getQuantite();
 	}
 }

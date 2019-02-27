@@ -20,4 +20,7 @@ public class ctrlStock {
 		cat.addProduits(dao.readAll());
 	}
 	
+	public void disconnect() {
+		dao.disconnect();
+	}
 }

@@ -107,8 +107,7 @@ public class Catalogue implements I_Catalogue {
 			if (nomProduit != null && qteVendue > 0 )
 			{
 				if (produit.getNom() == nomProduit && 
-						produit.getQuantite() > 0 && 
-						qteVendue <= produit.getQuantite())
+						produit.getQuantite() >= 0 && qteVendue <= produit.getQuantite())
 				{
 					produit.enlever(qteVendue);
 					return true;
