@@ -1,5 +1,6 @@
 package controleur;
 
+import graphique.FenetreAffichage;
 import dao.I_ProduitDAO;
 import dao.ProduitDAOFactory;
 import metier.Catalogue;
@@ -13,14 +14,26 @@ public class ctrlAchat {
 	}
 	
 	public  boolean acheterStock(String nomProduit, int qteAchetee) {
-		//dao.update(produit);
-		return cat.acheterStock(nomProduit, qteAchetee);
+		if (cat.acheterStock(nomProduit, qteAchetee)) {
+			dao.update(cat.getProduitByName(nomProduit));
+			return true;
+		}
+		return false;
 	}
+	
 	public  boolean vendreStock(String nomProduit, int qteVendue) {
-		//dao.update(produit);
-		return cat.vendreStock(nomProduit, qteVendue);
+		if (cat.vendreStock(nomProduit, qteVendue))
+		{
+			dao.update(cat.getProduitByName(nomProduit));
+			return true;
+		}
+		else
+		{
+			new FenetreAffichage("Achat impossible, quantitée insuffisante");
+			return false;
+		}
 	}
 	public String[] getStockInTab() {
-		return Catalogue.getInstance().getNomProduits();
+		return cat.getNomProduits();
 	}
 }

@@ -33,14 +33,14 @@ public class FenetreAchat extends JFrame implements ActionListener {
 		contentPane.add(btAchat);
 
 		btAchat.addActionListener(this);
-
 		this.setVisible(true);
-		
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == btAchat)
-			//controleurAchat.addProduit();
+		if (e.getSource() == btAchat) {
+			controleurAchat.acheterStock(combo.getSelectedItem().toString(),
+					Integer.valueOf(txtQuantite.getText()));
+		}
 		this.dispose();
 	}
 

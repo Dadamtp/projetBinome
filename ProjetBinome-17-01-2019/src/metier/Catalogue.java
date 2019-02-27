@@ -6,6 +6,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -152,6 +153,16 @@ public class Catalogue implements I_Catalogue {
 	@Override
 	public void clear() {
 		_lesProduits = null;
+	}
+	
+	public I_Produit getProduitByName(String nom) {
+		int i = 0;
+		
+		while (!nom.equals(_lesProduits.get(i).getNom())) {
+			i++;
+		}
+		
+		return _lesProduits.get(i);
 	}
 
 }

@@ -51,19 +51,19 @@ public class ProduitDAO implements I_ProduitDAO {
 	
 	@Override
 	public boolean update(I_Produit produit) {
-		int nouvelleQuantite = produit.getQuantite();
-		double nouveauPrix = produit.getPrixUnitaireHT();
 		
 		try {
 			ps = cn.prepareStatement("UPDATE Produits "
-									+ "SET quantite = ?, prix ?"
-									+ "WHERE ?");
+									+ "SET quantite = ?"
+									+ "WHERE nomProduit = '?'");
+			ps.setInt(1, produit.getQuantite());
+			ps.setString(2, produit.getNom());
+			return true;
 		}
 		catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
-		 
 		return false;
 	}
 	
